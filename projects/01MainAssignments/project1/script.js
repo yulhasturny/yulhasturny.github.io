@@ -1,29 +1,42 @@
-let len = 10;
-let bg;
+let textX = [];
+let textY = [];
+
+let mX, mY;
 
 function setup() {
-	createCanvas(windowWidth,windowHeight);
-	background(0);
-	frameRate(30);
-	rectMode(CENTER);
-	bg = color(10, 200, 58);
+  createCanvas(windowWidth, windowHeight);
+  background(255);
+  textSize(40);
+  textAlign(CENTER, CENTER);
 }
 
-function  draw() {
-	background(bg);
-	noFill();
-	strokeWeight(5);
-	stroke(20,250, 40);
-	
-	rect(pmouseX, pmouseY, len, len)
-  //height - mouseY mirrors the object along y axis
-	rect(pmouseX, height - pmouseY, len, len)
-	//increase the lenght by 1px every frame
-	len++;
-	
-	if(mouseIsPressed) {
-		len = 0;  
-		bg = color(89, 30, 33);
-	}
+function draw() {
+  background(0);
+
+  mX = mouseX;
+  mY = mouseY;
+
+  fill(255, 70);
+  noStroke();
+
+  for (let i = 0; i < textX.length; i++) {
+
+	  push();
+translate(textX[i], textY[i]);
+rotate(i * 0.01);
+text("SWOOSH", 0, 0);
+pop();
+
+    
+  }
 }
 
+function mouseMoved() {
+  textX.push(mouseX);
+  textY.push(mouseY);
+
+  if (textX.length > 150) {
+    textX.shift();
+    textY.shift();
+  }
+}
